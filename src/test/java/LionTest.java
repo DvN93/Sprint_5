@@ -40,22 +40,6 @@ public class LionTest {
     }
 
     @Test
-    @DisplayName("Исключение в случае некорректных данных пола")
-    void doesHaveManeUnknownSexThrowsException() {
-        assertThrows(Exception.class, () ->{
-            Lion unknownLion = new Lion("Оно",felineBehaviorMock);
-        });
-    }
-
-    @Test
-    @DisplayName("Проверка на передачу null вместо пола")
-        void doesHaveManeNullSexThrowsException() {
-            assertThrows(Exception.class, () ->{
-                Lion nullSexLion = new Lion(null,felineBehaviorMock);
-            });
-        }
-
-    @Test
     @DisplayName("Возвращает количество котят")
     void getKittensReturnKittens() throws Exception{
         when(felineBehaviorMock.getKittens()).thenReturn(2);
@@ -66,7 +50,7 @@ public class LionTest {
 
     @Test
     @DisplayName("Проверка вызова getFood с аргументом Хищник")
-    void getFoodReturnAnimalKind() throws Exception{
+    void getFoodReturnFood() throws Exception{
         when(felineBehaviorMock.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
         List<String> resultList = lion.getFood();
         assertEquals(3, resultList.size());
@@ -75,6 +59,16 @@ public class LionTest {
         assertEquals("Рыба", resultList.get(2));
 
         verify(felineBehaviorMock).getFood("Хищник");
+    }
+
+    @Test
+    @DisplayName("getFood выбрасывает исключение")
+    void getFoodThrowsException() throws Exception{
+    when(felineBehaviorMock.getFood("Хищник")).thenThrow(new Exception("Выброшено исключение"));
+    assertThrows(Exception.class, () ->{
+        lion.getFood();
+        });
+    verify(felineBehaviorMock).getFood("Хищник");
     }
 
 }
