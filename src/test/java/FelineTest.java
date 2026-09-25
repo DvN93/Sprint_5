@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class FelineTest {
 
@@ -40,5 +38,17 @@ public class FelineTest {
     @DisplayName("Метод eatMeat возвращает значение Хищник")
     void eatMeatReturnPredator() throws Exception{
         assertEquals(List.of("Животные", "Птицы", "Рыба"), feline.eatMeat());
+    }
+
+    @Test
+    @DisplayName("Метод getFood возвращает значение Травоядное")
+    void getFoodReturnsHerbivore() throws Exception{
+        assertEquals(List.of("Трава", "Различные растения"), feline.getFood("Травоядное"));
+    }
+
+    @Test
+    @DisplayName("Метод getFood возвращает значение Хищник")
+    void getFoodReturnPredator() throws Exception{
+        assertEquals(List.of("Животные", "Птицы", "Рыба"), feline.getFood("Хищник"));
     }
 }
