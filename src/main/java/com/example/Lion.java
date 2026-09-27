@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Lion {
 
+    private String sex;
     boolean hasMane;
     private final FelineBehavior felineBehavior;
 
